@@ -15,7 +15,6 @@
 
 基本接口
 ```c++
-
     virtual void Set(K var, V var2) = 0;
 	virtual	void Set(K var1, V var2, int64_t var3) = 0;
 	virtual	bool SetIfAbsent(K var1, V var2) = 0;
@@ -132,24 +131,19 @@ public:
 基本操作
 ```c++
 int main() {
-
 	auto logger = ConsoleUtils::get_mutable_instance().getConsoleLogger("main");
 	StringRedisTemplate templatesf;
-
 	auto h = templatesf.GetHashOps();
-
 	auto keys = h.Size("zd.oldhk.ref1324number");
 	logger->info(keys);
 	std::map<std::string, std::string> mapuser{ {"username","xiaoli"},{"password","riversky"},{"age","18"} };
 	h.PutAll("test.user.1", mapuser);
-
 	std::for_each(keys.begin(), keys.end(), [logger](auto key) {logger->info(key); });
 	logger->info(h.PutIfAbsent("test.user.1", "email", "riversky@126.com"));
 	auto values = h.Values("test.user.1");
 	std::for_each(values.begin(), values.end(), [logger](auto val) {logger->info(val); });
 	auto mapp = h.Entries("test.us3er.1");
 	std::for_each(mapp.begin(), mapp.end(), [logger](auto val) {logger->info("{}-{}", val.first, val.second); });
-
 	logger->info(templatesf.ConnectCount());
 	system("pause");
 	return 0;
@@ -190,11 +184,8 @@ class SetOperations {
 测试
 ```c++
 int main() {
-
 	auto logger = ConsoleUtils::get_mutable_instance().getConsoleLogger("main");
 	StringRedisTemplate templatesf;
-
-
 	auto s = templatesf.GetSetOps();
 	std::vector<std::string> v{ "as", "asfd","fasdf","2" };
 	logger->info(s.Add("test.set.ha1", v));
@@ -213,7 +204,6 @@ int main() {
 	logger->info(s.Size("test.set.ha1"));
 	logger->info(s.Pop("test.set.ha1"));
 	logger->info(s.Size("test.set.ha1"));
-
 	logger->info(s.Size("test.set.ha1"));
 	auto rpops = s.Pop("test.set.ha1", 2);
 	std::for_each(rpops.begin(), rpops.end(), [logger](const auto  di) {logger->info(di); });
@@ -227,8 +217,6 @@ int main() {
 	logger->info(s.Remove("test.set.ha1", v3));
 	auto scanas = s.Scan("test.set.ha1", "*as*", 2);
 	std::for_each(scanas.begin(), scanas.end(), [logger](const auto  di) {logger->info(di); });
-
-
 	logger->info(templatesf.ConnectCount());
 	system("pause");
 	return 0;
@@ -275,11 +263,8 @@ class ZSetOperations {
 测试
 ```c++
 int main() {
-
 	auto logger = ConsoleUtils::get_mutable_instance().getConsoleLogger("main");
 	StringRedisTemplate templatesf;
-
-
 	auto zset = templatesf.GetZSetOps();
 	logger->info(zset.Add("test.zset.ha", "lilei", 195));
 	std::vector<std::pair<double, std::string>> v{ {12,"zshagn"},{174,"baidu"},{23,"as"},{45,"wwef"} };
@@ -307,14 +292,9 @@ int main() {
 	logger->info(zset.ReverseRank("test.zset.ha", "baidu"));
 	printMap(re, logger);
 	print22(re, logger);
-
-
 	logger->info(templatesf.ConnectCount());
 	system("pause");
 	return 0;
-
-
-
 }
 ```
 

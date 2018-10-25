@@ -132,9 +132,7 @@
     <ClInclude Include="orderinfo.h" />
     <ClInclude Include="redisclient.h" />
     <ClInclude Include="RedisTemplate.h" />
-    <ClInclude Include="RedisUtils.hpp" />
     <ClInclude Include="SetOperations.hpp" />
-    <ClInclude Include="templatetest.hpp" />
     <ClInclude Include="ValueOperations.hpp" />
     <ClInclude Include="ZSetOperations.hpp" />
   </ItemGroup>
