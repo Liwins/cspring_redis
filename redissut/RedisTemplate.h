@@ -7,6 +7,9 @@
 #include <utils/ConsoleUtils.hpp>
 #include "ValueOperations.hpp"
 #include "HashOperations.hpp"
+#include "ListOperations.hpp"
+#include "SetOperations.hpp"
+#include "ZSetOperations.hpp"
 #include <regex>
 template<typename K, typename V>
 class RedisTemplate {
@@ -161,5 +164,14 @@ public:
 	}
 	DefaultHashOperations<std::string, std::string, std::string> GetHashOps() {
 		return  DefaultHashOperations<std::string, std::string, std::string>();
+	}
+	DefaultListOperations<std::string, std::string> GetListOps() {
+		return  DefaultListOperations<std::string, std::string>();
+	}
+	DefaultSetOperations<std::string, std::string> GetSetOps() {
+		return  DefaultSetOperations<std::string, std::string>();
+	}
+	DefaultZSetOperations<std::string, std::string> GetZSetOps() {
+		return  DefaultZSetOperations<std::string, std::string>();
 	}
 };

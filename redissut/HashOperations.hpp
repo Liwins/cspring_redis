@@ -3,25 +3,26 @@
 #include <set>
 #include <vector>
 #include <map>
-template<typename H,typename HK,typename HV>
+template<typename H, typename HK, typename HV>
 class HashOperations {
 public:
-     virtual	int64_t Delete(H var1, std::vector<HK>keys) = 0;
-     virtual	bool HasKey(H var1, HK var2) = 0;
-     virtual	HV Get(H var1, HK var2) = 0;
-     virtual	std::vector<HV> MultiGet(H var1, std::vector<HK> var2) = 0;
-     virtual	int64_t Increment(H var1, HK var2, int64_t var3) = 0;
-     virtual	double Increment(H var1, HK var2, double var3) = 0;
-     virtual	std::set<HK> Keys(H var1) = 0;
-     virtual	int64_t Size(H var1) = 0;
-     virtual	void PutAll(H var1, std::map< HK,  HV>& var2) = 0;
-     virtual	void Put(H var1, HK var2, HV var3) = 0;
-     virtual	bool PutIfAbsent(H var1, HK var2, HV var3) = 0;
-     virtual	std::vector<HV> Values(H var1) = 0;
-     virtual	std::map<HK, HV> Entries(H var1) = 0;
+	virtual	int64_t Delete(H var1, std::vector<HK>keys) = 0;
+	virtual	bool HasKey(H var1, HK var2) = 0;
+	virtual	HV Get(H var1, HK var2) = 0;
+	virtual	std::vector<HV> MultiGet(H var1, std::vector<HK> var2) = 0;
+	virtual	int64_t Increment(H var1, HK var2, int64_t var3) = 0;
+	virtual	double Increment(H var1, HK var2, double var3) = 0;
+	virtual	std::set<HK> Keys(H var1) = 0;
+	virtual	int64_t Size(H var1) = 0;
+	virtual	void PutAll(H var1, std::map< HK, HV>& var2) = 0;
+	virtual	void Put(H var1, HK var2, HV var3) = 0;
+	virtual	bool PutIfAbsent(H var1, HK var2, HV var3) = 0;
+	virtual	std::vector<HV> Values(H var1) = 0;
+	virtual	std::map<HK, HV> Entries(H var1) = 0;
+
 };
 template<typename H, typename HK, typename HV>
-class DefaultHashOperations :public HashOperations<H,HK,HV> {
+class DefaultHashOperations :public HashOperations<H, HK, HV> {
 public:
 	DefaultHashOperations() {
 		client = RedisClient::get_mutable_instance().GetClient();
@@ -35,7 +36,7 @@ public:
 	}
 	int64_t Delete(H var1, std::vector<HK>keys)override {
 		try {
-			auto rep = client->hdel(var1,keys);
+			auto rep = client->hdel(var1, keys);
 			client->commit();
 			auto res = rep.get();
 			return res.as_integer();
@@ -70,26 +71,26 @@ public:
 			auto res = rep.get();
 
 			if (res.is_null()) {
-				v= "";
+				v = "";
 			}
 			else {
-				v= res.as_string();
+				v = res.as_string();
 			}
 		}
 		catch (const std::exception& e) {
 			logger->error(e.what());
-			v= "";
+			v = "";
 			return v;
 		}
 		return v;
 	}
 	std::vector<HV> MultiGet(H var1, std::vector<HK> var2)override {
 		std::vector<HV> v;
-		try{
+		try {
 			auto rep = client->hmget(var1, var2);
 			client->commit();
 			auto res = rep.get();
-			if (res.is_null()){
+			if (res.is_null()) {
 				return v;
 			}
 			if (res.is_array()) {
@@ -102,14 +103,15 @@ public:
 					}
 				}
 			}
-		}catch (const std::exception & e){
+		}
+		catch (const std::exception & e) {
 			logger->error(e.what());
 			return v;
 		}
 	}
 	int64_t Increment(H var1, HK var2, int64_t var3)override {
 		try {
-			auto rep = client->hincrby(var1, var2,var3);
+			auto rep = client->hincrby(var1, var2, var3);
 			client->commit();
 			auto res = rep.get();
 			return res.as_integer();
@@ -166,10 +168,11 @@ public:
 		for (auto var : var2) {
 			v.push_back(var);
 		}
-		try{
-			client->hmset(var1,v, [](auto & reply) {});
+		try {
+			client->hmset(var1, v, [](auto & reply) {});
 			client->commit();
-		}catch (const std::exception & e){
+		}
+		catch (const std::exception & e) {
 			logger->info(e.what());
 		}
 	}
@@ -177,7 +180,7 @@ public:
 
 	}
 	bool PutIfAbsent(H var1, HK var2, HV var3) override {
-		try{
+		try {
 			auto rep = client->hsetnx(var1, var2, var3);
 			client->commit();
 			if (rep.get().as_integer() == 1) {
@@ -186,14 +189,15 @@ public:
 			else {
 				return false;
 			}
-		}catch (const std::exception & e){
+		}
+		catch (const std::exception & e) {
 			logger->info(e.what());
 			return false;
 		}
 	}
 	std::vector<HV> Values(H var1)override {
 		std::vector<HV> v;
-		try{
+		try {
 			auto rep = client->hvals(var1);
 			client->commit();
 			auto res = rep.get();
@@ -202,7 +206,8 @@ public:
 					v.push_back(re.as_string());
 				}
 			}
-		}catch (const std::exception & e){
+		}
+		catch (const std::exception & e) {
 			logger->error(e.what());
 			return v;
 		}
@@ -217,8 +222,8 @@ public:
 			if (res.is_array()) {
 				int i = 1;
 				std::pair<std::string, std::string> temp;
-				for (auto re:res.as_array()) {
-					if (i%2==1){
+				for (auto re : res.as_array()) {
+					if (i % 2 == 1) {
 						temp.first = re.as_string();
 					}if (i % 2 == 0) {
 						temp.second = re.as_string();
@@ -238,3 +243,5 @@ private:
 	cpp_redis::client* client;
 	const 	LOGGER logger = ConsoleUtils::get_mutable_instance().getConsoleLogger("HashOperations");
 };
+
+

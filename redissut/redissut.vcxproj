@@ -42,7 +42,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -84,7 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\lib64\jsoncpp\include;E:\lib64\boost\include\boost-1_59;E:\lib64\myutils\include;E:\lib64\spdlog-1.x\include;E:\lib64\cpp_redis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\lib64\catch2;E:\lib64\jsoncpp\include;E:\lib64\boost\include\boost-1_59;E:\lib64\myutils\include;E:\lib64\spdlog-1.x\include;E:\lib64\cpp_redis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
@@ -133,10 +133,13 @@
     <ClInclude Include="redisclient.h" />
     <ClInclude Include="RedisTemplate.h" />
     <ClInclude Include="RedisUtils.hpp" />
+    <ClInclude Include="SetOperations.hpp" />
+    <ClInclude Include="templatetest.hpp" />
     <ClInclude Include="ValueOperations.hpp" />
+    <ClInclude Include="ZSetOperations.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="README.txt" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{c4916464-e6d4-4f86-8a6e-f584adced414}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -47,10 +50,19 @@
     <ClInclude Include="ListOperations.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SetOperations.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ZSetOperations.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="templatetest.hpp">
+      <Filter>test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="README.txt">
+    <None Include="..\README.md">
       <Filter>资源文件</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>
